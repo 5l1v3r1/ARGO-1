@@ -18,7 +18,7 @@ A scriptable web enumeration automation tool
 
 > This project is tottaly new for now only port scanner and dns record enum only work but soon i will add more feature! Its build on top of ARGOX python modules   <br>
 
-
+> Feel free to contribute or you can email me at : anon42237@gmail.com for any new ideas
 
 ![ARGO](https://github.com/ScRiPt1337/ARGO/raw/master/Screenshot%20at%202020-08-19%2023-50-31.png)
 
