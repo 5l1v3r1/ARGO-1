@@ -3,8 +3,9 @@ A scriptable web enumeration automation tool
 
 ### How to build
 ```bash
-    chmod +x ./install.sh
-    bash ./install.sh
+    pip install -r requirements.txt
+    npm install
+    npm start
 ```
 
 ### Requirement
