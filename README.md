@@ -16,6 +16,8 @@ A scriptable web enumeration automation tool
 ### feature
 * fast port scan { find open port }
 * Find dns record
+* Web fuzzer (pyffuf > https://github.com/ScRiPt1337/pyffuf)
+* web analyzer
 
 > This project is tottaly new for now only port scanner and dns record enum only work but soon i will add more feature! Its build on top of AGROX python module https://github.com/ScRiPt1337/argox <br>
 
