@@ -1,7 +1,23 @@
 # ARGO
 A scriptable web enumeration automation tool
 
-### coming soon
+### How to build
+```bash
+    chmod +x ./install.sh
+    bash ./install.sh
+```
+
+### Requirement
+
+* python3
+* node js
+
+### feature
+* fast port scan { find open port }
+* Find dns record
+
+> This project is tottaly new for now only port scanner and dns record enum only work but soon i will add more feature! Its build on top of ARGOX python modules   <br>
+
 
 
 ![ARGO](https://github.com/ScRiPt1337/ARGO/raw/master/Screenshot%20at%202020-08-19%2023-50-31.png)
