@@ -12,7 +12,15 @@ class Attack:
 
     def portscan(self):
         argo = Argo(self.url)
-        return argo.scanport(self.host,debug=False)
+        return argo.scanport(self.host, debug=False)
+        
+    def analyze(self):
+        argo = Argo(self.url)
+        return argo.analyze()
+
+    def fuzzer(self):
+        argo = Argo(self.url + "/PUFF")
+        return argo.fuzzer()
 
 if __name__ == '__main__':
     attack = Attack(sys.argv[1], sys.argv[2])
@@ -20,3 +28,7 @@ if __name__ == '__main__':
         print(attack.dnsenum())
     elif int(sys.argv[3]) == 2:
         print(attack.portscan())
+    elif int(sys.argv[3]) == 3:
+        print(attack.analyze())
+    elif int(sys.argv[3]) == 4:
+        print(attack.fuzzer())

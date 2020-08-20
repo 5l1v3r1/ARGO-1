@@ -71,5 +71,9 @@
         document.getElementById("datax").value =  document.getElementById("datax").value + "\n" + data;
     });
 
+    socket.on('resultNO', function (data) {
+        console.log(data);
+        document.getElementById("datax").value =  document.getElementById("datax").value + data;
+    });
 </script>
 </html>

@@ -43,47 +43,66 @@ def start():
     return render_template("start.html", IP=ip, Useragent="Mozilla/5.0 (Windows NT 6.2)", os=osx, version=version,
                            distro=distrox, user=user)
 
+def getip(url):
+    ip = "127.0.1.7"
+    try:
+        unitest = url.replace("http://", "").replace("https://", "").replace("/","").split(":")[0]
+        if unitest[:3].isdigit():
+            ip = unitest
+        else:
+            new = dns.resolver.query(unitest, "A")
+            for A in new:
+                return str(A.to_text())
+    except Exception as e:
+        socketio.emit('result', "~#Error " + str(e))
+    if ip == "127.0.1.7":
+        try:
+            return socket.gethostbyname(unitest)
+        except Exception as e:
+            print(e)
 
-def scanport(url):
-    ip = ""
+def generatecommand(ip,url, num):
+    if os.path.isfile("./resources/app/argoui/attack.py"):
+        return "python3 ./resources/app/argoui/attack.py " + ip + " " + url + " " + str(num)
+    elif os.path.isfile("./argoui/attack.py"):
+        return "python3 ./argoui/attack.py " + ip + " " + url + " " + str(num)
+    else:
+        return "python3 ./attack.py " + ip + " " + url + " " + str(num)
+
+def webanalizer(ip,url):
+    socketio.emit('result', "~#Starting web analizer...")
+    command = generatecommand(ip,url,3)
+    data = subprocess.check_output(command, shell=True).decode().split("\\n\\t")
+    for i in data:
+        print(i)
+        socketio.emit('result', str(removejunk(i)).replace("\n\t","\n").replace("(","").replace("'')","") + "\n")
+
+def fuzz(ip,url):
+    socketio.emit('result', "~#Start fuzzing...")
+    command = generatecommand(ip, url, 4)
+    data = subprocess.check_output(command, shell=True).decode().split("\\n\\t")
+    for i in data:
+        socketio.emit('result', str(removejunk(i).replace(">","")))
+
+def scanport(ip,url):
     socketio.emit('result', "~#Port_scanning_Starting...")
     socketio.emit('result', "~#Scanning 1 to 10000 port!...")
-    try:
-        unitest = url.replace("http://", "").replace("https://", "").split(":")[0]
-        if unitest[:3].isdigit():
-            ip = unitest
-        else:
-            new = dns.resolver.query(unitest, "A")
-            for A in new:
-                ip = str(A.to_text())
-    except:
-        pass
-    if os.path.isfile("./resources/app/argoui/attack.py"):
-        command = "python3 ./resources/app/argoui/attack.py " + ip + " " + url + " 2"
-    else:
-        command = "python3 ./argoui/attack.py " + ip + " " + url + " 2"
-    openport = subprocess.check_output(command, shell=True)
-    print(openport.decode())
-    socketio.emit('result', str(removejunk(openport.decode())))
+    command = generatecommand(ip,url,2)
+    openport = subprocess.check_output(command, shell=True).decode().split("\n")
+    idata = ""
+    x = 1
+    for i in openport:
+        if x == 2:
+            idata = ""
+            socketio.emit('result', "~#OPEN PORT  >>>	")
+        socketio.emit('resultNO', " " +   str(removejunk(i)))
+        x = x + 1
 
-def scandns(url):
-    ip = "127.0.0.1"
-    try:
-        unitest = url.replace("http://", "").replace("https://", "").split(":")[0]
-        if unitest[:3].isdigit():
-            ip = unitest
-        else:
-            new = dns.resolver.query(unitest, "A")
-            for A in new:
-                ip = str(A.to_text())
-    except Exception as e:
-        print(e)
+def scandns(ip,url):
+    socketio.emit('result', "~#Dns Enum Starting...")
     dnsresult = ""
     try:
-        if os.path.isfile("./resources/app/argoui/attack.py"):
-            command = "python3 ./resources/app/argoui/attack.py " + ip + " " + url + " 1"
-        else:
-            command = "python3 ./argoui/attack.py " + ip + " " + url + " 1"
+        command = generatecommand(ip,url,1)
         dnsresult = subprocess.check_output(command, shell=True).decode().split("\\\\n")
     except Exception as e:
         cprint.err(e)
@@ -96,11 +115,13 @@ def removejunk(data):
     return data.replace("\n", "").replace("\n\n", "").replace("\t", "").replace("[0m","").replace("[92m","").replace("['","\n").replace("]","").replace(","," ").replace("[","\n").replace("\'\"","")
 
 def startx(url):
-    socketio.emit('result', "~#Dns Enum Starting...")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    scandns(url)
-    scanport(url)
+    ip = getip(url)
+    webanalizer(ip,url)
+    scandns(ip,url)
+    scanport(ip, url)
+    fuzz(ip,url)
 
 @socketio.on('startscan')
 def startscan(data):
