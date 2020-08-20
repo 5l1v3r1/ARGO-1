@@ -1,0 +1,27 @@
+{
+  "name": "argo",
+  "version": "1.0.0",
+  "description": "argo build using argo python module its a scriptable web enum tool",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . argo --ignore=node_modules/electron-*"
+  },
+  "repository": "https://github.com/script1337/ARGO",
+  "keywords": [
+    "pyffuf",
+    "dns enum",
+    "portscanenr",
+    "webscanner",
+    "python"
+  ],
+  "author": "script1337",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^9.2.1",
+    "electron-packager": "^15.0.0"
+  },
+  "dependencies": {
+    "url-exist": "^2.0.2"
+  }
+}

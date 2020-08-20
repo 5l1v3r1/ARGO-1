@@ -1,0 +1,12 @@
+aiohttp
+asyncio
+beautifulsoup4
+clint
+dnspython
+cprint
+wad
+flask_socketio
+flask
+fake_useragent
+requests
+pyopenssl

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href=" {{ url_for("static",filename="bootstrap.min.css") }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href=" {{ url_for("static",filename="style.css") }}">
+    <title>Argo</title>
+</head>
+<body>
+<br>
+<div class="jumbotron card border-success mb-3">
+  <div class="container form-row">
+    <div class="container form-group col-md-7">
+        <div class="card border-success" style="max-width: 30rem;">
+            <div class="card-body row col-sm-9">
+                <h4 class="card-title text-danger">[✗]─[{{ user }}@{{ distro }}]</h4>
+                <br>
+                <p class="card-text text-success">IP : {{ IP }} <br> User-agent : {{ Useragent }} <br> Os : {{ os }} <br> Version : {{ version }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container form-group col-md-4">
+        <center>
+            <form>
+                <h1 class="display-6 text-success mx-auto"><strong>ARGO</strong></h1>
+                    <fieldset>
+                        <label class="text-success">Target : </label>
+                        <input type="text" class="form-control-plaintext card border-success form-control-sm" id="staticurlfield" placeholder="https://google.com">
+                    </fieldset>
+                </form>
+              <br>
+            <button type="button" id="startattack" class="btn btn-outline-danger btn-sm" >Start recon</button>
+            <button type="button" id="clearconsole" class="btn btn-outline-danger btn-sm" >Clear console</button>
+        </center>
+     </div>
+  </div>
+</div>
+<div class="container">
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100"></div>
+</div>
+<br>
+<div class="form-group">
+<textarea  rows="7" cols="50" class="form-control-plaintext card border-success" readonly="" id="datax" rows="3" spellcheck="false"></textarea>
+</div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script>
+    const socket = io.connect("http://127.0.0.1:5000");
+
+    socket.on('connect', function () {
+        socket.emit('ready', {
+            connected: "True"
+        });
+    });
+    
+    document.getElementById("startattack").addEventListener("click", function() {
+        socket.emit('startscan', {
+            url: document.getElementById("staticurlfield").value
+        });
+    });
+
+    document.getElementById("clearconsole").addEventListener("click", function() {
+        document.getElementById("datax").value = ""
+    });
+
+    socket.on('result', function (data) {
+        console.log(data);
+        document.getElementById("datax").value =  document.getElementById("datax").value + "\n" + data;
+    });
+
+</script>
+</html>

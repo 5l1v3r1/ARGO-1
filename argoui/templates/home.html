@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href=" {{ url_for("static",filename="bootstrap.min.css") }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Argo</title>
+</head>
+<body>
+<br>
+<div class="jumbotron card border-success mb-3">
+<center>
+  <h1 class="display-7 text-success mx-auto"><strong>ARGO</strong></h1>
+  <p class="lead text-success mx-auto" ><strong>A Scriptable web scanner</strong></p>
+  <a href="/start"><button type="button" class="btn btn-outline-success" >Start Scanner</button></a>
+</center>
+</div>
+<div class="container">
+<br>
+<img src="{{ url_for('static',filename="img/translogo.png") }}" width="200" height="50"></img>
+<p class="text-danger">{{ bad }}</p>
+<p class="text-success"><strong>Version : {{ version }}</strong></p>
+<p class="text-success"><strong>Last update : {{ date }}</strong></p>
+<p class="text-success"><strong>Current cpu Usage : {{ Cpu }}%</strong></p>
+<p class="text-success "><strong>Current Memory Usage :  {{ Mem }}%</strong></p>
+<span class="badge badge-pill badge-primary">python</span>
+<span class="badge badge-pill badge-secondary">Gui + Cli</span>
+<span class="badge badge-pill badge-success">Automate enumeration</span>
+<span class="badge badge-pill badge-danger">web fuzzer</span>
+<span class="badge badge-pill badge-warning">Asynchronous</span>
+<span class="badge badge-pill badge-info">fast af boi</span>
+<span class="badge badge-pill badge-dark">Open souce</span>
+</div>
+</body>
+</html>
