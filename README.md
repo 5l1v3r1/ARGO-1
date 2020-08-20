@@ -16,7 +16,7 @@ A scriptable web enumeration automation tool
 * fast port scan { find open port }
 * Find dns record
 
-> This project is tottaly new for now only port scanner and dns record enum only work but soon i will add more feature! Its build on top of AGROX python modules https://github.com/ScRiPt1337/argox <br>
+> This project is tottaly new for now only port scanner and dns record enum only work but soon i will add more feature! Its build on top of AGROX python module https://github.com/ScRiPt1337/argox <br>
 
 > Feel free to contribute or you can email me at : anon42237@gmail.com for any new ideas
 
