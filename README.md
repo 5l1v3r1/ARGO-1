@@ -24,6 +24,8 @@ A scriptable web enumeration automation tool
 
 > Feel free to contribute or you can email me at : anon42237@gmail.com for any new ideas
 
+> Demo video : https://www.youtube.com/watch?v=rUmoQTQ1BcA
+
 ![ARGO](https://github.com/ScRiPt1337/ARGO/raw/master/Screenshot%20at%202020-08-19%2023-50-31.png)
 
 
